@@ -3,6 +3,7 @@ let song, song1, song2, song3, song4;
 let analyzer; 
 let c, increase; 
 let s, n; 
+let input, inputsong; 
 
 function preload(){
   song1 = loadSound('audio/Zedd - Clarity (feat. Foxes).mp3'); 
@@ -17,6 +18,9 @@ function setup() {
   n = 0; 
   song = s[n]; 
   song.play(); 
+  
+  input = document.getElementById("file-input");
+  input.addEventListener("change", handleFile, false);
   
   analyzer = new p5.Amplitude();
   analyzer.setInput(song);
@@ -65,11 +69,12 @@ function draw() {
   push(); 
   // colorMode(RGB); 
   textFont('courier new'); 
-  textSize(20); 
+  textSize(18); 
   fill(0, 0, 255); 
-  text('[space] to pause/play', 30, height - 90); 
-  text('[<- ->] arrow keys to switch songs', 30, height - 60); 
-  text('songs: Clarity, I NEED U, Mind, Overdose', 30, height - 30); 
+  text('[space] to pause/play', 20, height - 80); 
+  text('[<- ->] arrow keys to switch songs', 20, height - 60); 
+  text('songs: Clarity, I NEED U, Mind, Overdose', 20, height - 40); 
+  text('try uploading your own song below', 20, height - 20)
   pop(); 
 }
 
@@ -104,4 +109,26 @@ function keyPressed() {
     song = s[n]; 
     song.play(); 
   }
+}
+
+function handleFile() {
+    const fileList = this.files; 
+  const file = fileList[0];
+  console.log(file);
+  var reader = new FileReader();
+
+  reader.onload = function(e) {
+    if (file.type === 'audio/mpeg' || file.type === 'audio/wav') {
+      inputsong = loadSound(e.target.result, playInputAudio); 
+    } 
+  }
+
+  reader.readAsDataURL(file);
+}
+
+function playInputAudio() {
+  song.stop(); 
+  s[s.length] = inputsong; 
+  song = s[s.length - 1]; 
+  song.play(); 
 }
