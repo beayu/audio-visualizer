@@ -4,6 +4,7 @@ let analyzer;
 let c, increase; 
 let s, n; 
 let input, inputsong; 
+let rotation; 
 
 function preload(){
   song1 = loadSound('audio/Zedd - Clarity (feat. Foxes).mp3'); 
@@ -25,17 +26,22 @@ function setup() {
   analyzer = new p5.Amplitude();
   analyzer.setInput(song);
 
+  // mic for alyssa - change any song input to mic
+  // mic = new p5.AudioIn();
+  // mic.start(); 
+  
   fft = new p5.FFT();
   fft.setInput(song);
   
   colorMode(HSB);
   c = 0;
   increase = true; 
+  rotation = PI / 180; 
 }
 
 function draw() {
   background(0, 0, 0, 5 / 255)
-  analyzer.setInput(song);
+  analyzer.setInput(mic);
   
   let rms = analyzer.getLevel();
   let spectrum = fft.analyze(); 
@@ -57,8 +63,12 @@ function draw() {
 
   // ellipse(width / 2, height / 2 - 50, 30 + rms * 800, 30 + rms * 800); 
   
+  translate(width / 2, height / 2); 
+  rotation += PI / 180;
+  rotate(rotation); 
+  
   push();
-  translate(width / 2, height / 2);
+  // translate(width / 2, height / 2);
   noStroke();
   for (var r1 = 0; r1 < 10; r1++) {
     ellipse(0, rms * 400, 10 + rms * 300, 20 + rms * 600); 
