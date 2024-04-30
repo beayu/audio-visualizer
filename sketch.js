@@ -61,13 +61,12 @@ function draw() {
   }
   stroke(0); 
 
-  // ellipse(width / 2, height / 2 - 50, 30 + rms * 800, 30 + rms * 800); 
-  
-  translate(width / 2, height / 2); 
-  rotation += PI / 180;
-  rotate(rotation); 
+  // ellipse(width / 2, height / 2 - 50, 30 + rms * 800, 30 + rms * 800);  
   
   push();
+  translate(width / 2, height / 2); 
+  rotation += PI / 180;
+  rotate(rotation);
   // translate(width / 2, height / 2);
   noStroke();
   for (var r1 = 0; r1 < 10; r1++) {
