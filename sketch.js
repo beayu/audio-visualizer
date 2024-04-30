@@ -36,7 +36,8 @@ function setup() {
   colorMode(HSB);
   c = 0;
   increase = true; 
-  rotation = PI / 180; 
+  angleMode(DEGREES); 
+  rotation = 0; 
 }
 
 function draw() {
@@ -65,13 +66,13 @@ function draw() {
   
   push();
   translate(width / 2, height / 2); 
-  rotation += PI / 180;
+  rotation += 0.15;
   rotate(rotation);
   // translate(width / 2, height / 2);
   noStroke();
   for (var r1 = 0; r1 < 10; r1++) {
     ellipse(0, rms * 400, 10 + rms * 300, 20 + rms * 600); 
-    rotate(PI / 5);
+    rotate(36);
   }
   pop();
   
